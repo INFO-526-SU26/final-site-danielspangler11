@@ -1,11 +1,11 @@
 ---
-title: "Proposal title"
-subtitle: "Proposal"
+title: "Exploring the Simpsons Dataset"
+subtitle: "Final Project Proposal"
 author: 
-  - name: "Team Name"
+  - name: "Daniel Spangler"
     affiliations:
       - name: "School of Information, University of Arizona"
-description: "Project description"
+description: "Using the Simpsons dataset to analyze episode rating and character appearances over seasons"
 format:
   html:
     code-tools: true
@@ -22,6 +22,7 @@ execute:
 #| label: load-pkgs
 #| message: false
 library(tidyverse)
+library(tidytuesdayR)
 ```
 
 ## Dataset
@@ -34,6 +35,28 @@ library(tidyverse)
 A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
 
 Make sure to load the data and use inline code for some of this information.
+
+```{r}
+tuesdata <- tidytuesdayR::tt_load(2025, week = 5)
+
+simpsons_characters <- tuesdata$simpsons_characters
+simpsons_episodes <- tuesdata$simpsons_episodes
+simpsons_locations <- tuesdata$simpsons_locations
+simpsons_script_lines <- tuesdata$simpsons_script_lines
+```
+
+```{r}
+dim(simpsons_characters)
+dim(simpsons_episodes)
+dim(simpsons_locations)
+dim(simpsons_script_lines)
+```
+
+The data set that I chose comes from Tidy Tuesday 2025-02-04 and is all about the Simpsons, which is a very popular adult animated sitcom. This data was originally from The Simpsons Dataset on Kaggle. The data set contains four tables each highlighting a different aspect of the show. The tables include characters, episodes, locations, and script lines. The data is very large (with the show having so many seasons), with the character data frame including 6722 rows and script lines data frame containing 31793 rows.
+
+I chose this data set because it is really interesting to look at the success of each different season, and see if that can be attributed to a certain character or location. Any analysis that I can do on movies or TV I always find super interesting, and because of the immense history and quality of this show, I jumped at the chance to do a project on it.
+
+Link to original data set: <https://www.kaggle.com/datasets/prashant111/the-simpsons-dataset>
 
 ## Questions
 
