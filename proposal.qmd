@@ -62,6 +62,37 @@ Link to original data set: <https://www.kaggle.com/datasets/prashant111/the-simp
 
 The two questions you want to answer.
 
+1.  How have the IMDB ratings of the Simpsons episodes changed over time?
+2.  Which Simpsons characters have the most speaking lines each season, and how does this change over time?
+
 ## Analysis plan
 
 -   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+
+Question 1
+
+Variables:
+
+-   season, imdb_rating, us_viewers_in_millions, original_air_year, views
+
+-   Create categorical variable for era
+
+Planned visualizations:
+
+-   Boxplot per season
+
+-   Bar chart
+
+Question 2
+
+Variables:
+
+-   raw_character_text, episode id from script lines data set
+
+-   season from episodes data set
+
+Planned visualizations:
+
+-   Stacked bar chart
+
+-   Heatmap
