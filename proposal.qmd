@@ -73,9 +73,23 @@ Question 1
 
 Variables:
 
--   season, imdb_rating, us_viewers_in_millions, original_air_year, views
+-   season, imdb_rating, us_viewers_in_millions, original_air_year
 
 -   Create categorical variable for era
+
+    -   Classic Era (Seasons 1-8)
+
+    -   Scully Era (Seasons 9-12)
+
+        -   Named after showrunner Mike Scully
+
+    -   Jean SD Era (Seasons 13-19)
+
+        -   Named after Al Jean
+
+    -   Jean HD Era (Seasons 20-Today)
+
+    -   Sourced from <https://nohomers.net/forums/index.php?threads/the-simpsons-eras-division.43685/>
 
 Planned visualizations:
 
