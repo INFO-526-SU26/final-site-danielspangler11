@@ -27,11 +27,6 @@ library(tidytuesdayR)
 
 ## Dataset
 
-```{r}
-#| label: load-dataset
-#| message: false
-```
-
 A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
 
 Make sure to load the data and use inline code for some of this information.
@@ -107,6 +102,6 @@ Variables:
 
 Planned visualizations:
 
--   Stacked bar chart
+-   Stacked bar chart showing top 10 characters with most lines
 
--   Heatmap
+-   Heatmap (also top 10 characters)
