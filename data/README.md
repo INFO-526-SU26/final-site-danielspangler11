@@ -7,7 +7,7 @@ Link to TidyTuesday: <https://github.com/rfordatascience/tidytuesday/tree/main/d
 
 # Codebook for Dataset
 
-Codebook sourced from <https://github.com/rfordatascience/tidytuesday/tree/main/data/2025/2025-02-04>
+Codebook sourced from TidyTuesday <https://github.com/rfordatascience/tidytuesday/tree/main/data/2025/2025-02-04>
 
 # `simpsons_characters.csv`
 
