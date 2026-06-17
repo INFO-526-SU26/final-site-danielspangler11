@@ -1,11 +1,11 @@
 ---
-title: "Project Title"
-subtitle: "INFO 526 - Summer 2024 - Final Project"
+title: "Exploring the Simpsons Dataset"
+subtitle: "INFO 526 - Summer 2026 - Final Project"
 author: 
-  - name: "Team name"
+  - name: "Daniel Spangler"
     affiliations:
       - name: "School of Information, University of Arizona"
-description: "Project description"
+description: "Using the Simpsons dataset to analyze episode rating and character appearances over seasons"
 format:
    html:
     code-tools: true
