@@ -21,6 +21,7 @@ execute:
 ```{r}
 #| label: load-pkgs
 #| message: false
+
 library(tidyverse)
 library(tidytuesdayR)
 ```
@@ -32,6 +33,9 @@ A brief description of your dataset including its provenance, dimensions, etc. a
 Make sure to load the data and use inline code for some of this information.
 
 ```{r}
+#| label: load-dataset
+#| message: false
+
 tuesdata <- tidytuesdayR::tt_load(2025, week = 5)
 
 simpsons_characters <- tuesdata$simpsons_characters
@@ -41,6 +45,8 @@ simpsons_script_lines <- tuesdata$simpsons_script_lines
 ```
 
 ```{r}
+#| label: dataset-dims
+
 dim(simpsons_characters)
 dim(simpsons_episodes)
 dim(simpsons_locations)
@@ -88,9 +94,9 @@ Variables:
 
 Planned visualizations:
 
--   Boxplot per season
+-   Boxplot of average imdb_rating per era
 
--   Bar chart
+-   Bar chart of average imdb_rating per era, with trend lines
 
 Question 2
 
