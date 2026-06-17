@@ -2,30 +2,30 @@
   {
     "objectID": "proposal.html",
     "href": "proposal.html",
-    "title": "Proposal title",
+    "title": "Exploring the Simpsons Dataset",
     "section": "",
-    "text": "library(tidyverse)"
+    "text": "library(tidyverse)\nlibrary(tidytuesdayR)"
   },
   {
     "objectID": "proposal.html#dataset",
     "href": "proposal.html#dataset",
-    "title": "Proposal title",
+    "title": "Exploring the Simpsons Dataset",
     "section": "Dataset",
-    "text": "Dataset\nA brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.\nMake sure to load the data and use inline code for some of this information."
+    "text": "Dataset\nA brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.\nMake sure to load the data and use inline code for some of this information.\n\ntuesdata &lt;- tidytuesdayR::tt_load(2025, week = 5)\n\nsimpsons_characters &lt;- tuesdata$simpsons_characters\nsimpsons_episodes &lt;- tuesdata$simpsons_episodes\nsimpsons_locations &lt;- tuesdata$simpsons_locations\nsimpsons_script_lines &lt;- tuesdata$simpsons_script_lines\n\n\ndim(simpsons_characters)\n\n[1] 6722    4\n\ndim(simpsons_episodes)\n\n[1] 151  14\n\ndim(simpsons_locations)\n\n[1] 4459    3\n\ndim(simpsons_script_lines)\n\n[1] 31793    13\n\n\nThe data set that I chose comes from Tidy Tuesday 2025-02-04 and is all about the Simpsons, which is a very popular adult animated sitcom. This data was originally from The Simpsons Dataset on Kaggle. The data set contains four tables each highlighting a different aspect of the show. The tables include characters, episodes, locations, and script lines. The data is very large (with the show having so many seasons), with the character data frame including 6722 rows and script lines data frame containing 31793 rows.\nI chose this data set because it is really interesting to look at the success of each different season, and see if that can be attributed to a certain character or location. Any analysis that I can do on movies or TV I always find super interesting, and because of the immense history and quality of this show, I jumped at the chance to do a project on it.\nLink to original data set: https://www.kaggle.com/datasets/prashant111/the-simpsons-dataset"
   },
   {
     "objectID": "proposal.html#questions",
     "href": "proposal.html#questions",
-    "title": "Proposal title",
+    "title": "Exploring the Simpsons Dataset",
     "section": "Questions",
-    "text": "Questions\nThe two questions you want to answer."
+    "text": "Questions\nThe two questions you want to answer.\n\nHow have the IMDB ratings of the Simpsons episodes changed over time?\nWhich Simpsons characters have the most speaking lines each season, and how does this change over time?"
   },
   {
     "objectID": "proposal.html#analysis-plan",
     "href": "proposal.html#analysis-plan",
-    "title": "Proposal title",
+    "title": "Exploring the Simpsons Dataset",
     "section": "Analysis plan",
-    "text": "Analysis plan\n\nA plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any)."
+    "text": "Analysis plan\n\nA plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).\n\nQuestion 1\nVariables:\n\nseason, imdb_rating, us_viewers_in_millions, original_air_year\nCreate categorical variable for era\n\nClassic Era (Seasons 1-8)\nScully Era (Seasons 9-12)\n\nNamed after showrunner Mike Scully\n\nJean SD Era (Seasons 13-19)\n\nNamed after Al Jean\n\nJean HD Era (Seasons 20-Today)\nSourced from https://nohomers.net/forums/index.php?threads/the-simpsons-eras-division.43685/\n\n\nPlanned visualizations:\n\nBoxplot per season\nBar chart\n\nQuestion 2\nVariables:\n\nraw_character_text, episode id from script lines data set\nseason from episodes data set\n\nPlanned visualizations:\n\nStacked bar chart showing top 10 characters with most lines\nHeatmap (also top 10 characters)"
   },
   {
     "objectID": "index.html",
@@ -53,7 +53,7 @@
     "href": "presentation.html#layouts",
     "title": "Project title",
     "section": "Layouts",
-    "text": "Layouts\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\n\nlike\nthis\n\nAnd add footnotes"
+    "text": "Layouts\nYou can use plain text\n\n\n\nor bullet points1\n\n\nor in two columns\n\n\nlike\nthis\n\nAnd add footnotes"
   },
   {
     "objectID": "presentation.html#code",
