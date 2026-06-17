@@ -21,7 +21,6 @@ execute:
 ```{r}
 #| label: load-pkgs
 #| message: false
-
 library(tidyverse)
 library(tidytuesdayR)
 ```
@@ -33,18 +32,15 @@ A brief description of your dataset including its provenance, dimensions, etc. a
 Make sure to load the data and use inline code for some of this information.
 
 ```{r}
-#| label: load-dataset
-#| message: false
+tuesdata <- tidytuesdayR::tt_load(2025, week = 5)
 
-simpsons_characters   <- read_csv("data/simpsons_characters.csv")
-simpsons_episodes     <- read_csv("data/simpsons_episodes.csv")
-simpsons_locations    <- read_csv("data/simpsons_locations.csv")
-simpsons_script_lines <- read_csv("data/simpsons_script_lines.csv")
+simpsons_characters <- tuesdata$simpsons_characters
+simpsons_episodes <- tuesdata$simpsons_episodes
+simpsons_locations <- tuesdata$simpsons_locations
+simpsons_script_lines <- tuesdata$simpsons_script_lines
 ```
 
 ```{r}
-#| label: dataset-dims
-
 dim(simpsons_characters)
 dim(simpsons_episodes)
 dim(simpsons_locations)
@@ -92,9 +88,9 @@ Variables:
 
 Planned visualizations:
 
--   Boxplot of average imdb_rating per era
+-   Boxplot per season
 
--   Bar chart of average imdb_rating per era, with trend lines
+-   Bar chart
 
 Question 2
 
@@ -109,3 +105,4 @@ Planned visualizations:
 -   Stacked bar chart showing top 10 characters with most lines
 
 -   Heatmap (also top 10 characters)
+
