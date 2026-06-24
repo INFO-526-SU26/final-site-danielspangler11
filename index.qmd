@@ -5,7 +5,7 @@ author:
   - name: "Daniel Spangler"
     affiliations:
       - name: "School of Information, University of Arizona"
-description: "Using the Simpsons dataset to analyze episode rating and character appearances over seasons"
+description: "Using the Simpsons dataset to analyze episode rating and character speaking lines over seasons"
 format:
    html:
     code-tools: true
@@ -20,6 +20,43 @@ execute:
 
 ## Abstract
 
-This project provides visualizations to determine how IMDB ratings and character speaking lines have changed across seasons or eras of the Simpsons. This will be done by showing a boxplot of the different IMDB ratings for each showrunner era, showing the median rating and ranges of outcomes. The analysis will also include a heatmap showing the top 10 characters who speak the most lines per era.
+This project provides visualizations to determine how IMDB ratings and character speaking lines have changed across seasons or eras of the Simpsons. This will be done by showing a box plot of the different IMDB ratings for each show runner era, showing the median rating and ranges of outcomes. The analysis will also include a heat map showing the top 10 characters who speak the most lines per era.
 
 ## Introduction
+
+The data set comes from Tidy Tuesday 2025-02-04 and is all about the Simpsons, which is a very popular adult animated sitcom. This data was originally from The Simpsons Dataset on Kaggle. The data set contains four tables each highlighting a different aspect of the show. The tables include characters, episodes, locations, and script lines. The data is very large (with the show having so many seasons), with the character data frame including 6722 rows and script lines data frame containing 31793 rows.
+
+The data will be used to determine how IMDB ratings and character speaking lines have changed during different show runner's eras of the show. This will be done through two different visualizations including a box plot of IMDB ratings over the different eras of the show, and a heat map that shows the top 10 characters with the most speaking lines in each era.
+
+Link to data set: <https://www.kaggle.com/datasets/prashant111/the-simpsons-dataset>
+
+```{r}
+#| label: loading necessary packages
+#| message: false
+
+library(tidyverse)
+library(tidytuesdayR)
+
+```
+
+```{r}
+#| label: load data set
+#| message: false
+
+# loading the data locally
+simpsons_characters   <- read_csv("data/simpsons_characters.csv") # characters dataset
+simpsons_episodes     <- read_csv("data/simpsons_episodes.csv") # episodes dataset
+simpsons_locations    <- read_csv("data/simpsons_locations.csv") # locations dataset
+simpsons_script_lines <- read_csv("data/simpsons_script_lines.csv") # script lines dataset
+```
+
+The data set is split into 4 different tables, including characters, episodes, locations, and script lines. The characters data set includes every character in the history of the Simpsons, with 6,722 rows and 4 columns including the character name and ID. The episodes data set contains one row per episode of the series over it's entire history, with values like IMDB ratings, the amount of viewers, the seasons, and release date. The episodes data set has 600 rows and 14 columns. The locations data set features all the unique locations in the Simpsons, with identifiers for each. There are 4,459 rows and 3 columns in this data set. Finally, the script lines data set is the largest, totaling with 158,271 and 13 columns. This shows every script line that has ever been said, including the specific season, character, and more.
+
+The project will address two different questions:
+
+## Questions
+
+1.  How have the IMDB ratings of the Simpsons episodes changed over time?
+2.  Which Simpsons characters have the most speaking lines during each era of the show, and how does this change over time?
+
+## Question 1
