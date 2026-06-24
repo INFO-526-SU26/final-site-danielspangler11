@@ -116,26 +116,26 @@ Planned visualizations:
 
 ## Weekly Plan of Attack
 
-Week 1: Data Ingestion & Environmental Setup
+Week 1: Data Exploration, Setup, and Proposal
 
-Set up repository and working environment, choose data set, and ingest the dataset via the GitHub URL. Run initial glimpse(), dim(), and summary() checks. Identify missing values (NA values), specifically in the Release Date or Run Time columns, and decide how to handle them (e.g., filtering them out or looking up missing pieces).
+Set up the Github repository and brainstorm what data set/questions I would like to explore. After deciding, I can start the proposal and start brainstorming how I would like to answer these questions, using what different visualizations. I will import the four data sets into the proposal, and see the dimensions of each.
 
-Week 2: Feature Engineering & Data Cleaning
+Week 2: Continue Proposal
 
-Create categorical era buckets and content length buckets. Merge data and flag data into "Movies" vs. "TV Shows". Calculate the content age/decay metrics. Print out small table summaries using count() to make sure custom categories have a healthy balance of rows.
+I can now fill out the Analysis Plan section of the proposal, giving specific information of what visualizations I am going to create, and what variables are needed to complete this task. I will define the different 'eras' that I mentioned in question 1, and give research as to why I chose those values.
 
-Week 3: Exploratory Data Analysis (EDA) & Summary Statistics
+Week 3: Peer Review
 
-Calculate standard numeric summaries (mean, median, standard deviation) of Views and Hours Viewed across different categorical buckets. Look at the skewness of viewership data. Because streaming hits have massive outliers, decide if it is necessary to apply a log transformation to numeric axes for upcoming charts.
+I will perform peer reviews on two projects from other students. Using this information and seeing what they wrote in their proposal, I can incorporate anything that I believe I missed. Also, looking at their reviews of my project, I can add more or edit my project to improve it.
 
-Week 4: Data Visualization (Drafting the Core Plots)
+Week 4: Revise proposal + begin write-up (`index.qmd`)
 
-Develop Question 1 plots: The scatter plot tracking popularity decay over time, and the box plots comparing release eras. Develop Question 2 plots: The faceted scatter plots breaking down runtime trends by Movie vs. Show. Apply clean axis labels, custom scales, and clear legends.
+Using the Issues from our teacher, I can revise my proposal and add anything that I missed from the template. Once I did this, I will begin my write up for the project by bringing in the data, finalizing the eras that I mentioned before, and correctly joining data sets to merge characters and script lines for question 2. I will complete a rough draft of what my visualizations will look like.
 
-Week 5: Statistical Interpretation & Narrative Writing
+Week 5: Work on project
 
-Draft the written sections in Quarto document beneath code chunks. Interpret the charts: Does an older era hold a surprising amount of nostalgia/lasting popularity? Is there an optimal movie runtime that maximizes views? Use print statements within code to dynamically display key takeaway numbers directly inside report text.
+I will continue working on my project, improving all of the plots and writing in the reflection sections of each plot, giving the audience a look into why these plots are important, and the reasoning I chose them.
 
-Week 6: Quarto Polishing, Code Review, and Formatting
+Week 6: Finalize all materials and record presentation
 
-Render and double check all content. Finalize repository and record presentation.
+I will finalize the presentation and record it, while also making sure everything is in the correct place for the project. I will double check that the website is working, and correctly displays all the information I was hoping it would.
