@@ -58,7 +58,7 @@ id,name,normalized_name
 57,Backyard,backyard
 58,DIRT ROAD,dirt road
 59,Simpson Dining Room,simpson dining room
-60,NEIGHBOR #1'S HOUSE,neighbor 1 house
+60,"NEIGHBOR #1'S HOUSE",neighbor 1 house
 61,WILLIAMS' HOUSE,williams house
 62,WILLIAMS DEN,williams den
 63,WILLIAMS' LAWN,williams lawn
@@ -68,7 +68,7 @@ id,name,normalized_name
 67,Dr. Monroe's Office,dr monroe office
 68,DR. MONROE'S LABORATORY,dr monroe laboratory
 69,Waiting Room,waiting room
-70,STREET NEIGHBOR #2'S HOUSE,street neighbor 2 house
+70,"STREET NEIGHBOR #2'S HOUSE",street neighbor 2 house
 71,School Bus,school bus
 72,NEAR SCHOOL ENTRANCE,near school entrance
 73,PLAYGROUND,playground
@@ -597,8 +597,8 @@ id,name,normalized_name
 594,Springfield Barber College,springfield barber college
 595,Dog Pound,dog pound
 596,Springfield Googolplex Theatres,springfield googolplex theatres
-597,MOVIE THEATRE #1,movie theatre 1
-598,MOVIE THEATRE #6,movie theatre 6
+597,"MOVIE THEATRE #1",movie theatre 1
+598,"MOVIE THEATRE #6",movie theatre 6
 599,COUNTRY BAR,country bar
 600,The Beer -N- Brawl,the beer -n- brawl
 601,HOSPITAL OPERATING ROOM,hospital operating room
@@ -3500,7 +3500,7 @@ id,name,normalized_name
 3499,STREETS OF SPRINGFIELD - NIGHT,streets of springfield - night
 3500,BASHIR'S HOUSE,bashir house
 3501,AMID'S STUDY,amid study
-3502,OFFICE #1,office 1
+3502,"OFFICE #1",office 1
 3503,UNDER SEA,under sea
 3504,Mapple World Headquarters,mapple world headquarters
 3505,BILLIONAIRES RETREAT,billionaires retreat
