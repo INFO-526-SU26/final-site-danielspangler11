@@ -36,18 +36,26 @@ Make sure to load the data and use inline code for some of this information.
 #| label: load-dataset
 #| message: false
 
-simpsons_characters   <- read_csv("data/simpsons_characters.csv")
-simpsons_episodes     <- read_csv("data/simpsons_episodes.csv")
-simpsons_locations    <- read_csv("data/simpsons_locations.csv")
-simpsons_script_lines <- read_csv("data/simpsons_script_lines.csv")
+# loading the data locally
+simpsons_characters   <- read_csv("data/simpsons_characters.csv") # characters dataset
+simpsons_episodes     <- read_csv("data/simpsons_episodes.csv") # episodes dataset
+simpsons_locations    <- read_csv("data/simpsons_locations.csv") # locations dataset
+simpsons_script_lines <- read_csv("data/simpsons_script_lines.csv") # script lines dataset
 ```
 
 ```{r}
 #| label: dataset-dims
 
+# characters dataset has 6722 rows and 4 columns
 dim(simpsons_characters)
+
+# episodes dataset has 151 rows and 14 columns
 dim(simpsons_episodes)
+
+# locations dataset has 4459 rows and 3 columns
 dim(simpsons_locations)
+
+# script lines dataset has 31,793 rows and 13 columns
 dim(simpsons_script_lines)
 ```
 
@@ -59,14 +67,10 @@ Link to original data set: <https://www.kaggle.com/datasets/prashant111/the-simp
 
 ## Questions
 
-The two questions you want to answer.
-
 1.  How have the IMDB ratings of the Simpsons episodes changed over time?
 2.  Which Simpsons characters have the most speaking lines each season, and how does this change over time?
 
 ## Analysis plan
-
--   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
 
 Question 1
 
@@ -109,3 +113,29 @@ Planned visualizations:
 -   Stacked bar chart showing top 10 characters with most lines
 
 -   Heatmap (also top 10 characters)
+
+## Weekly Plan of Attack
+
+Week 1: Data Ingestion & Environmental Setup
+
+Set up repository and working environment, choose data set, and ingest the dataset via the GitHub URL. Run initial glimpse(), dim(), and summary() checks. Identify missing values (NA values), specifically in the Release Date or Run Time columns, and decide how to handle them (e.g., filtering them out or looking up missing pieces).
+
+Week 2: Feature Engineering & Data Cleaning
+
+Create categorical era buckets and content length buckets. Merge data and flag data into "Movies" vs. "TV Shows". Calculate the content age/decay metrics. Print out small table summaries using count() to make sure custom categories have a healthy balance of rows.
+
+Week 3: Exploratory Data Analysis (EDA) & Summary Statistics
+
+Calculate standard numeric summaries (mean, median, standard deviation) of Views and Hours Viewed across different categorical buckets. Look at the skewness of viewership data. Because streaming hits have massive outliers, decide if it is necessary to apply a log transformation to numeric axes for upcoming charts.
+
+Week 4: Data Visualization (Drafting the Core Plots)
+
+Develop Question 1 plots: The scatter plot tracking popularity decay over time, and the box plots comparing release eras. Develop Question 2 plots: The faceted scatter plots breaking down runtime trends by Movie vs. Show. Apply clean axis labels, custom scales, and clear legends.
+
+Week 5: Statistical Interpretation & Narrative Writing
+
+Draft the written sections in Quarto document beneath code chunks. Interpret the charts: Does an older era hold a surprising amount of nostalgia/lasting popularity? Is there an optimal movie runtime that maximizes views? Use print statements within code to dynamically display key takeaway numbers directly inside report text.
+
+Week 6: Quarto Polishing, Code Review, and Formatting
+
+Render and double check all content. Finalize repository and record presentation.
