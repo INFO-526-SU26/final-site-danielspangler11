@@ -67,7 +67,74 @@ The Simpsons TV show has been running for multiple decades at this point, first 
 
 To do this, I will be using the episodes data set, with important columns like IMDB rating, season, and original air date. With this data set, I will have to create an era variable, to signify the four unique eras of the show. Seasons 1-8 will be known as the Classic Era, with these seasons having multiple different teams of show runners. Seasons 9-12 will be labeled as Scully, named after the show runner Mike Scully during that time. Seasons 13-19 will be called Jean SD, named after show runner Al Jean and how the show was in Standard Definition during that time. Lastly, any episodes in seasons 20+ will be named Jean HD, after the same show runner Al Jean, but now the show is in High Definition instead of SD like before.
 
-I am interested in this question because
+I am interested in this question because I've heard the sentiment online about the more recent seasons being worse, and I wanted to see if the data could actually back it up. Everyone enjoys watching TV, and I think the Simpsons itself is really intriguing because it has been going on for so long, and so much has happened in the world during the time it has aired. That gives us great and accessible information we can do lots of studies on.
+
+### Approach
+
+To answer this question, I will be building two different types of visualizations. The first one that I will build is a box plot of of IMDB ratings by era of the Simpsons. These eras are defined above as Classic, Scully, Jean SD, and Jean HD. To do this, I must split the data into different era categories, then plot the data. This box plot is going to be meaningful for the audience to view because it doesn't shrink the topic down to one number like a mean would. It shows the median, and potential ranges for each era, highlighting not only better ratings, but the best and worst episodes each era.
+
+The second graph that I will make is a scatter plot of IMDB ratings versus season with a trend line. Plotting the seasons on the x-axis instead of the era like before will give us a better view of the ratings on a season by season basis, instead of just the 4 eras like before. Although there are a lot more seasons, it won't be too much for the eye of the audience like the box plot of each season would. Once making the scatter plot, I will plot a trend line to see if the average rating really does go down as time moves on.
+
+### Analysis
+
+```{r}
+#| label: create era variable
+#| message: false
+
+# creating era variable in episode data set
+simpsons_episodes <- simpsons_episodes |>
+  mutate(
+    era = case_when(
+      season >=1 & season <= 8 ~ "Classic (1-8)",
+      season >= 9 & season <= 12 ~ "Scully (9-12)",
+      season >= 13 & season <=19 ~ "Jean SD (13-19)",
+      season >= 20 ~ "Jean HD (20+)"
+    ),
+    era = factor(era,levels = c("Classic (1-8)","Scully (9-12)","Jean SD (13-19)","Jean HD (20+)"))
+  )
+```
+
+```{r}
+#| label: create box plot
+#| message: false
+
+ggplot(simpsons_episodes, aes(x = era, y = imdb_rating, fill = era)) + 
+  geom_boxplot(show.legend = FALSE) + # create box plot
+  scale_fill_brewer(palette = "Set2") + # set color scheme
+  labs(
+    x = NULL,
+    y = "IMDB Rating",
+    title = "IMDB Ratings by Simpsons Era"
+  ) + theme_minimal()
+```
+
+```{r}
+#| label: create scatter plot
+#| message: false
+
+ggplot(simpsons_episodes, aes(x = season, y = imdb_rating)) + 
+  geom_point(aes(color = era)) + # create scatter plot
+  geom_smooth(method = "lm", color = "black", se = FALSE) + # plot straight trend line
+  scale_x_continuous(breaks = seq(0, 35, by = 5)) + 
+  scale_color_brewer(name = "Era", palette = "Set2") + # set same color scheme
+  labs(
+    x = "Season",
+    y = "IMDB Rating",
+    title = "IMDB Ratings across Seasons of the Simpsons"
+  ) + theme_minimal()
+```
+
+### Discussion
+
+The box plot in the first visualization suggests that as time has gone on, IMDB ratings actually have gotten worse and worse, supporting the argument of audiences saying that the show has gotten worse. You can see in the plot that in the Classic era, or seasons 1-8, the median IMDB rating falls at about an 8.25, and that is the highest median IMDB rating for all eras. In the Scully era this value falls to around 7.5, in the Jean SD it is about a 7, and finally in Jean HD the value is at a mere 6.75. This fully supports audience claims about the newer seasons being worse than the original, and it isn't just nostalgia talking. One interesting thing you can see from the plot is the range of outcomes for each era, as the Jean HD era shows episodes that are both higher rated, and lower rated than Jean SD, meaning they have a less predictable range of outcomes with some episodes being really good and others really bad. The Jean SD era definitely has the tightest range, with only a few outliers close to the percentile ranges on both sides. Whereas the Scully era has the biggest range of outcomes, with an outlier episode at a little bit over a 5, which is the second worst of all-time, and another outlier with a rating of over a 9, which is one of the best of all-time.
+
+The scatter plot reinforces the idea from the box plot, showing that as time goes on, the IMDB ratings for the Simpsons episodes get worse on average. You can see this explicitly by the trend line gained from doing the linear method on the data. In this trend line, you can very easily see that there is a negative slope of the line, as seasons increases, the IMDB rating on average decreases. This plot is also useful to see the ranges of outcomes for each season, similar to what we talked about before. You can see the explicit episodes that got high and low ratings for each season.
+
+There are many reasons people speculate that Simpsons episodes have gotten worse over time, but this just tends to happen to all TV shows that go on for that long. As time goes on, they run out of story lines, new people are brought onto the show, and overall the audience just starts to lose interest. This has also been the case for other long lasting TV shows like Spongebob, Family Guy, and even the Office.
+
+## Question 2: Which Simpsons characters have the most speaking lines during each era of the show, and how does this change over time?
+
+### Introduction
 
 ### Approach
 
