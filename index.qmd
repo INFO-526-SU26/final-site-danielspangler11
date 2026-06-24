@@ -59,4 +59,18 @@ The project will address two different questions:
 1.  How have the IMDB ratings of the Simpsons episodes changed over time?
 2.  Which Simpsons characters have the most speaking lines during each era of the show, and how does this change over time?
 
-## Question 1
+## Question 1: How have the IMDB ratings of the Simpsons episodes changed over time?
+
+### Introduction
+
+The Simpsons TV show has been running for multiple decades at this point, first airing in 1989. Throughout the run of the Simpsons, the show has had multiple different show runners. Audiences have always argued that the quality of the show has declined since it first aired, but there is no real reasoning to this argument. What my question hopes to do is put real data behind this question, and analyze each show runner and the median IMDB ratings for their episodes to see if the quality of the show has actually declined, or it is just nostalgia talking.
+
+To do this, I will be using the episodes data set, with important columns like IMDB rating, season, and original air date. With this data set, I will have to create an era variable, to signify the four unique eras of the show. Seasons 1-8 will be known as the Classic Era, with these seasons having multiple different teams of show runners. Seasons 9-12 will be labeled as Scully, named after the show runner Mike Scully during that time. Seasons 13-19 will be called Jean SD, named after show runner Al Jean and how the show was in Standard Definition during that time. Lastly, any episodes in seasons 20+ will be named Jean HD, after the same show runner Al Jean, but now the show is in High Definition instead of SD like before.
+
+I am interested in this question because
+
+### Approach
+
+### Analysis
+
+### Discussion
