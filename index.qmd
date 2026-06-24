@@ -11,6 +11,7 @@ format:
     code-tools: true
     code-overflow: wrap
     embed-resources: true
+    echo: false
 editor: visual
 execute:
   warning: false
@@ -19,4 +20,6 @@ execute:
 
 ## Abstract
 
-Add project abstract here.
+This project provides visualizations to determine how IMDB ratings and character speaking lines have changed across seasons or eras of the Simpsons. This will be done by showing a boxplot of the different IMDB ratings for each showrunner era, showing the median rating and ranges of outcomes. The analysis will also include a heatmap showing the top 10 characters who speak the most lines per era.
+
+## Introduction
