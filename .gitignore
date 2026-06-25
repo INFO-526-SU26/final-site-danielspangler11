@@ -4,6 +4,8 @@
 .Ruserdata
 
 /.quarto/
+_site/
+_freeze/
 
 **/*.quarto_ipynb
 *.rmarkdown
