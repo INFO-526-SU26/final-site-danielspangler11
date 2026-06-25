@@ -196,7 +196,7 @@ ggplot(season_percent, aes(x = season, y = pct_lines, fill = raw_character_text)
 ```
 
 ```{r}
-#| label: stacked bar chart
+#| label: heat map
 #| message: false
 
 ggplot(era_percent, aes(x = era, y = raw_character_text, fill = pct_lines)) + 
