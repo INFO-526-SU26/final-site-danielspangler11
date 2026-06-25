@@ -1,7 +1,7 @@
 ---
-title: "Project title"
-subtitle: "INFO 526 - Summer 2024 - Final Project"
-author: "Author names"
+title: "Exploring the Simpsons Dataset"
+subtitle: "INFO 526 - Summer 2026 - Final Project"
+author: "Daniel Spangler"
 title-slide-attributes:
   data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
   data-background-size: stretch
@@ -46,120 +46,160 @@ knitr::opts_chunk$set(
 #| label: load-data
 #| include: false
 # Load data here
-data(mtcars)
-mtcars$speed <- mtcars$hp / mtcars$wt
 
-data("penguins")
+# loading the data locally
+simpsons_characters   <- read_csv("data/simpsons_characters.csv") # characters dataset
+simpsons_episodes     <- read_csv("data/simpsons_episodes.csv") # episodes dataset
+simpsons_locations    <- read_csv("data/simpsons_locations.csv") # locations dataset
+simpsons_script_lines <- read_csv("data/simpsons_script_lines.csv") # script lines dataset
 ```
 
-# Using Quarto for presentations
+## Simpsons Dataset
 
-## Quarto
+-   Tidy Tuesday 2025-02-04
 
--   The presentation is created using the Quarto CLI
+-   Original data set from Kaggle: <https://www.kaggle.com/datasets/prashant111/the-simpsons-dataset>
 
--   `##` sets the start of a new slide
+-   Dataset includes
 
-## Layouts
+    -   Characters
 
-You can use plain text
+    -   Episodes
 
-::: columns
-::: {.column width="40%"}
--   or bullet points[^1]
+    -   Locations
+
+    -   Script Lines
+
+## Question 1{.smaller}
+
+::::: columns
+::: {.column width="30%"}
+**How have the IMDB ratings of the Simpsons episodes changed over time?**
+
+-   Audiences claim that the Simpsons was better when it first aired
+
+<!-- -->
+
+-   Must define Era variable first:
+
+    -   Classic (Seasons 1-8)
+
+    -   Scully (Seasons 9-12)
+
+    -   Jean SD (Seasons 13-19)
+
+    -   Jean HD (Seasons 220+)
 :::
 
-::: {.column width="60%"}
-or in two columns
-:::
-:::
-
-[^1]: And add footnotes
-
--   like
-
--   this
-
-## Code
-
-```{r, echo=FALSE}
-model <- lm(mpg ~ speed, data = mtcars) 
-
-model |> tidy()
-
-model |> glance()
-
-```
-
-## Plots
-
-```{r}
-penguins |>
-  mutate(species = ifelse(species == "Adelie", "Adelie", "Other")) |>
-  ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
-  geom_point()
-```
-
-## Plot and text
-
-::: columns
-::: {.column width="50%"}
--   Some text
-
--   goes here
-:::
-
-::: {.column width="50%"}
+::: {.column width="70%"}
 ```{r, warning=FALSE, fig.width=5.5}
-penguins |>
-  ggplot(aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot(linewidth = 0.75,
-               outlier.size = 2.5) +
-  theme_minimal(base_size = 15) +
-  theme(legend.key.size = unit(0.8, "cm"))
+simpsons_episodes <- simpsons_episodes |>
+  mutate(
+    era = case_when(
+      season >=1 & season <= 8 ~ "Classic (1-8)",
+      season >= 9 & season <= 12 ~ "Scully (9-12)",
+      season >= 13 & season <=19 ~ "Jean SD (13-19)",
+      season >= 20 ~ "Jean HD (20+)"
+    ),
+    era = factor(era,levels = c("Classic (1-8)","Scully (9-12)","Jean SD (13-19)","Jean HD (20+)"))
+  )
+
+ggplot(simpsons_episodes, aes(x = era, y = imdb_rating, fill = era)) + 
+  geom_boxplot(show.legend = FALSE) + # create box plot
+  scale_fill_brewer(palette = "Set2") + # set color scheme
+  labs(
+    x = NULL,
+    y = "IMDB Rating",
+    title = "IMDB Ratings by Simpsons Era"
+  ) + theme_minimal()
 ```
 :::
-:::
+:::::
 
-# A new section...
-
-## Tables
-
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
+## Question 1 Continued
 
 ```{r}
-penguins |> 
-  head() |>
-  kableExtra::kable() |>
-  kableExtra::kable_styling()
+ggplot(simpsons_episodes, aes(x = season, y = imdb_rating)) + 
+  geom_point(aes(color = era)) + # create scatter plot
+  geom_smooth(method = "lm", color = "black", se = FALSE) + # plot straight trend line
+  scale_x_continuous(breaks = seq(0, 35, by = 5)) + 
+  scale_color_brewer(name = "Era", palette = "Set2") + # set same color scheme
+  labs(
+    x = "Season",
+    y = "IMDB Rating",
+    title = "IMDB Ratings across Seasons of the Simpsons"
+  ) + theme_minimal()
 ```
 
-## Images
+## Question 2{.smaller}
 
-![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
+::::: columns
+::: {.column width="30%"}
+**Which Simpsons characters have the most speaking lines during each era of the show, and how does this change over time?**
 
-## Math Expressions {.smaller}
+-   Decided to work in Percentage of Lines for each season/era per character
 
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
+-   Audiences claim side characters have taken a step back in more recent seasons, with Homer having most of the lines
+:::
 
-```         
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+::: {.column width="70%"}
+```{r, warning=FALSE, fig.width=5.5}
+lines_by_season <- simpsons_script_lines |>
+  left_join(
+    simpsons_episodes |> select(id, season, era),
+    by = c("episode_id" = "id")
+  ) |>
+  filter(!is.na(season), !is.na(raw_character_text))
+
+top10_characters <- lines_by_season |>
+  count(raw_character_text, sort = TRUE) |>
+  slice_head(n = 10) |>
+  pull(raw_character_text)
+
+season_percent <- lines_by_season |>
+  count(season, raw_character_text, name = "line_amount") |>
+  group_by(season) |>
+  mutate(pct_lines = line_amount / sum(line_amount) * 100) |>
+  ungroup() |>
+  filter(raw_character_text %in% top10_characters) |>
+  mutate(raw_character_text = factor(raw_character_text, levels = rev(top10_characters)))
+
+era_percent <- lines_by_season |>
+  count(era, raw_character_text, name = "line_amount") |>
+  group_by(era) |>
+  mutate(pct_lines = line_amount / sum(line_amount) * 100) |>
+  ungroup() |>
+  filter(raw_character_text %in% top10_characters) |>
+  mutate(raw_character_text = factor(raw_character_text, levels = rev(top10_characters)))
+
+ggplot(season_percent, aes(x = season, y = pct_lines, fill = raw_character_text)) + 
+  geom_col() + 
+  scale_x_continuous(breaks = seq(0, 35, by = 5)) + 
+  scale_y_continuous(labels = scales::label_percent(scale = 1)) + 
+  scale_fill_brewer(name = "Character", palette = "Set3") +
+  labs(
+    x = "Season",
+    y = "Line Percentage",
+    title = "Simpsons Top 10 Characters by Line Amounts per Season"
+  ) + theme_minimal()
 ```
+:::
+:::::
 
-$$
-\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
-$$
+## Question 2 Continued
 
-Limitations:
-
-1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-2.  There should not be spaces after the opening `$` or before the closing `$`.
-
-# Wrap up
-
-## Feeling adventurous?
-
--   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
-
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
+```{r, warning=FALSE, fig.width=8}
+ggplot(era_percent, aes(x = era, y = raw_character_text, fill = pct_lines)) + 
+  geom_tile() + 
+  scale_fill_distiller(name = "Line Percentage", palette = "Greens", direction = 1, labels = scales::label_percent(scale = 1)) + 
+  geom_text(
+    aes(label = paste0(round(pct_lines, 1), "%"),
+        color = pct_lines > max(pct_lines) * 0.6),
+    show.legend = FALSE
+  ) + scale_color_manual(values = c("black", "white")) + 
+  labs(
+    x = "Era",
+    y = NULL,
+    title = "Heat Map of Character Dialogue by Simpsons Era"
+  ) + theme_minimal()
+```
