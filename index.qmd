@@ -148,6 +148,7 @@ The first visualization will be a stacked bar chart with season on the x-axis an
 #| label: creating top 10
 #| message: false
 
+# merging script line and episodes dataset over episode id
 lines_by_season <- simpsons_script_lines |>
   left_join(
     simpsons_episodes |> select(id, season, era),
@@ -155,11 +156,13 @@ lines_by_season <- simpsons_script_lines |>
   ) |>
   filter(!is.na(season), !is.na(raw_character_text))
 
+# determining characters with top 10 most speaking lines
 top10_characters <- lines_by_season |>
   count(raw_character_text, sort = TRUE) |>
   slice_head(n = 10) |>
   pull(raw_character_text)
 
+# for stacked bar chart, calculating percentage of lines per season for each character
 season_percent <- lines_by_season |>
   count(season, raw_character_text, name = "line_amount") |>
   group_by(season) |>
@@ -168,6 +171,7 @@ season_percent <- lines_by_season |>
   filter(raw_character_text %in% top10_characters) |>
   mutate(raw_character_text = factor(raw_character_text, levels = rev(top10_characters)))
 
+# for heat map, calculating percentage of lines per era for each character
 era_percent <- lines_by_season |>
   count(era, raw_character_text, name = "line_amount") |>
   group_by(era) |>
@@ -183,10 +187,10 @@ era_percent <- lines_by_season |>
 #| message: false
 
 ggplot(season_percent, aes(x = season, y = pct_lines, fill = raw_character_text)) + 
-  geom_col() + 
-  scale_x_continuous(breaks = seq(0, 35, by = 5)) + 
-  scale_y_continuous(labels = scales::label_percent(scale = 1)) + 
-  scale_fill_brewer(name = "Character", palette = "Set3") +
+  geom_col() + # stacked bar graph
+  scale_x_continuous(breaks = seq(0, 35, by = 5)) + # make seasons go by 5
+  scale_y_continuous(labels = scales::label_percent(scale = 1)) + # make y-axis percentages
+  scale_fill_brewer(name = "Character", palette = "Set3") + # set color scheme
   labs(
     x = "Season",
     y = "Line Percentage",
@@ -200,13 +204,13 @@ ggplot(season_percent, aes(x = season, y = pct_lines, fill = raw_character_text)
 #| message: false
 
 ggplot(era_percent, aes(x = era, y = raw_character_text, fill = pct_lines)) + 
-  geom_tile() + 
-  scale_fill_distiller(name = "Line Percentage", palette = "Greens", direction = 1, labels = scales::label_percent(scale = 1)) + 
+  geom_tile() + # heat map
+  scale_fill_distiller(name = "Line Percentage", palette = "Greens", direction = 1, labels = scales::label_percent(scale = 1)) + # set color scheme and make percents
   geom_text(
-    aes(label = paste0(round(pct_lines, 1), "%"),
+    aes(label = paste0(round(pct_lines, 1), "%"), # put exact percentages in each tile
         color = pct_lines > max(pct_lines) * 0.6),
     show.legend = FALSE
-  ) + scale_color_manual(values = c("black", "white")) + 
+  ) + scale_color_manual(values = c("black", "white")) + # change from black to white based on values 
   labs(
     x = "Era",
     y = NULL,
