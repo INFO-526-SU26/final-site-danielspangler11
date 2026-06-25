@@ -136,8 +136,91 @@ There are many reasons people speculate that Simpsons episodes have gotten worse
 
 ### Introduction
 
+Question 1 shows how the show was perceived by the audience through IMDB ratings, but question 2 highlights how those specific seasons were built, with what specific characters shining the brightest and having the most speaking lines. Question 2 will focus on the script lines data set which shows all the dialogue and lines ever spoken throughout all of the seasons of the Simpsons. The data set includes things like what the line was, which character spoke it, and what season is was during.
+
+Doing this analysis will help us understand not only which characters are the most popular during every season, but after relating it to the first question and first two visualizations we can see which characters are loved by the audience and make for good story lines, relating the seasons or eras that are the most popular with those specific characters.
+
+I am interested in this question because online there have been a lot of conversations about which characters have taken a back seat in the more recent seasons. Allegedly, they have sidelined a lot of the minimal side characters and focused on Homer and the handful of more popular characters instead of diving into story lines all over the place like they did originally. I want to see if this is actually true, and if the amount of dialogue that Homer and the more popular characters have had has decreased since the first couple of seasons.
+
 ### Approach
 
+To do this, the first thing I will do is determine the top 10 characters with the most lines throughout all the seasons of the show. These will be the default characters used in my analysis, and what we will focus on for every season. Instead of just doing graphs with the amount of lines, i decided to do them based on the percentage of lines that the character had in the certain season or era. After finding the top 10 characters with the most speaking lines, I determined the percentage of dialogue lines they spoke based on the season or era.
+
+The first visualization will be a stacked bar chart with season on the x-axis and percent line count on the y-axis with the graph being separated into different colors for each character. A stacked bar chart is good for this analysis because it shows the distribution of this character's speaking lines, and if they grow or shrink as time goes on.
+
+The second visualization is going to be a heat map with the era on the x-axis and the top 10 speaking characters of all-time on the y-axis. The color or heat of the squares will be the percentage of dialogue they have during that specific era. A heat map will be good for this analysis because it will be a simple way to visualize the amount of character dialogue. It will be a bit easier to visualize with eras on the x-axis instead of seasons with the stacked bar chart, as that is a lot for the audience to take in.
+
 ### Analysis
+
+```{r}
+#| label: creating top 10
+#| message: false
+
+lines_by_season <- simpsons_script_lines |>
+  left_join(
+    simpsons_episodes |> select(id, season, era),
+    by = c("episode_id" = "id")
+  ) |>
+  filter(!is.na(season), !is.na(raw_character_text))
+
+top10_characters <- lines_by_season |>
+  count(raw_character_text, sort = TRUE) |>
+  slice_head(n = 10) |>
+  pull(raw_character_text)
+
+season_percent <- lines_by_season |>
+  count(season, raw_character_text, name = "line_amount") |>
+  group_by(season) |>
+  mutate(pct_lines = line_amount / sum(line_amount) * 100) |>
+  ungroup() |>
+  filter(raw_character_text %in% top10_characters) |>
+  mutate(raw_character_text = factor(raw_character_text, levels = rev(top10_characters)))
+
+era_percent <- lines_by_season |>
+  count(era, raw_character_text, name = "line_amount") |>
+  group_by(era) |>
+  mutate(pct_lines = line_amount / sum(line_amount) * 100) |>
+  ungroup() |>
+  filter(raw_character_text %in% top10_characters) |>
+  mutate(raw_character_text = factor(raw_character_text, levels = rev(top10_characters)))
+
+```
+
+```{r}
+#| label: stacked bar chart
+#| message: false
+
+ggplot(season_percent, aes(x = season, y = pct_lines, fill = raw_character_text)) + 
+  geom_col() + 
+  scale_x_continuous(breaks = seq(0, 35, by = 5)) + 
+  scale_y_continuous(labels = scales::label_percent(scale = 1)) + 
+  scale_fill_brewer(name = "Character", palette = "Set3") +
+  labs(
+    x = "Season",
+    y = "Line Percentage",
+    title = "Simpsons Top 10 Characters by Line Amounts per Season"
+  ) + theme_minimal()
+  
+```
+
+```{r}
+#| label: stacked bar chart
+#| message: false
+
+ggplot(era_percent, aes(x = era, y = raw_character_text, fill = pct_lines)) + 
+  geom_tile() + 
+  scale_fill_distiller(name = "Line Percentage", palette = "Greens", direction = 1, labels = scales::label_percent(scale = 1)) + 
+  geom_text(
+    aes(label = paste0(round(pct_lines, 1), "%"),
+        color = pct_lines > max(pct_lines) * 0.6),
+    show.legend = FALSE
+  ) + scale_color_manual(values = c("black", "white")) + 
+  labs(
+    x = "Era",
+    y = NULL,
+    title = "Heat Map of Character Dialogue by Simpsons Era"
+  ) + theme_minimal()
+  
+```
 
 ### Discussion
