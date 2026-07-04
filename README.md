@@ -6,6 +6,10 @@ Final Project repo for INFO 526 - Summer 2026.
 #### Disclosure:
 Derived from the original course by Mine Çetinkaya-Rundel @ Duke University
 
+## Quick Links:
+
+Presentation video: https://screenapp.io/app/v/Y1UDgZM6du
+
 # Data
 
 The data set that I chose comes from Tidy Tuesday 2025-02-04 and is all about the Simpsons, which is a very popular adult animated sitcom. This data was originally from The Simpsons Dataset on Kaggle. The data set contains four tables each highlighting a different aspect of the show. The tables include characters, episodes, locations, and script lines. The data is very large (with the show having so many seasons), with the character data frame including 6722 rows and script lines data frame containing 31793 rows.
